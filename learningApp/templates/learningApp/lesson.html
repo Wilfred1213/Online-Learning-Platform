@@ -1,0 +1,201 @@
+{% extends 'base/learningApp/base.html' %}
+{% load static %}
+
+{% load embed_video_tags %}
+
+{% block content %}
+<div class="super_container pt-5">
+			
+	
+	
+	<!-- Events -->
+
+	<div class="events">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="section_title_container text-center">
+						<h2 class="section_title">Take Your Lesson</h2>
+						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row events_row">
+
+				<!-- Event -->
+				
+				<div class="row">
+					{% for lesson in lessons %}
+					<div class="col-lg-4 event_col">
+						<div class="event event_left">
+							<div class="event_image">{% video lesson.video 'small' %}</div>
+							<div class="event_body d-flex flex-row align-items-start justify-content-start">
+								<div class="event_date">
+									<div class="d-flex flex-column align-items-center justify-content-center trans_200">
+										<div class="event_day trans_200">21</div>
+										<div class="event_month trans_200">Aug</div>
+									</div>
+								</div>
+								<div class="event_content">
+									<div class="event_title"><a href="#">{{ lesson.title }}</a></div>
+									<div class="event_info_container">
+										<div class="event_info"><i class="fa fa-clock-o" aria-hidden="true"></i><span>15.00 - 19.30</span></div>
+										<div class="event_info"><i class="fa fa-map-marker" aria-hidden="true"></i><span>{{ lesson.course.title }}</span></div>
+										<div class="event_text">
+											<p>{{ lesson.content }}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% if forloop.counter|divisibleby:3 and not forloop.last %}
+				</div>
+				<div class="row">
+					{% endif %}
+					{% endfor %}
+				</div>
+				
+								
+			</div>
+			
+		</div>
+	</div>
+
+	<!-- Team -->
+
+	<div class="team">
+		<div class="team_background parallax-window" data-parallax="scroll" data-image-src="{% static 'learningApp/images/team_background.jpg' %}" data-speed="0.8"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="section_title_container text-center">
+						<h2 class="section_title">Your tutors for this course</h2>
+						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+					</div>
+				</div>
+			</div>
+			<div class="row team_row">
+				
+				<!-- Team Item -->
+				{% for tutor in tutors %}
+				<div class="col-lg-3 col-md-6 team_col">
+					
+					<div class="team_item">
+						
+						<div class="team_image"><img src="{{ tutor.photo.url }}" alt=""></div>
+						<div class="team_body">
+							<div class="team_title"><a href="#">{{ tutor.name }}</a></div>
+							<div class="team_subtitle">{{ tutor.position }}</div>
+							<div class="social_list">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				{% endfor %}
+				
+			</div>
+			<div class="news_post_large_title"><a href="{{quiz_url}}">Take a quiz</a></div>
+		</div>
+	</div>
+
+	<!-- Latest News -->
+
+	<div class="news">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="section_title_container text-center">
+						<h2 class="section_title">Latest News</h2>
+						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+					</div>
+				</div>
+			</div>
+			<div class="row news_row">
+				<div class="col-lg-7 news_col">
+					
+					<!-- News Post Large -->
+					<div class="news_post_large_container">
+						<div class="news_post_large">
+							<div class="news_post_image"><img src="{% static 'learningApp/images/news_1.jpg' %}" alt=""></div>
+							<div class="news_post_large_title"><a href="blog_single.html">Here’s What You Need to Know About Online Testing for the ACT and SAT</a></div>
+							<div class="news_post_meta">
+								<ul>
+									<li><a href="#">admin</a></li>
+									<li><a href="#">november 11, 2017</a></li>
+								</ul>
+							</div>
+							<div class="news_post_text">
+								<p>Policy analysts generally agree on a need for reform, but not on which path policymakers should take. Can America learn anything from other nations...</p>
+							</div>
+							<div class="news_post_link"><a href="blog_single.html">read more</a></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-5 news_col">
+					<div class="news_posts_small">
+
+						<!-- News Posts Small -->
+						<div class="news_post_small">
+							<div class="news_post_small_title"><a href="blog_single.html">Home-based business insurance issue (Spring 2017 - 2018)</a></div>
+							<div class="news_post_meta">
+								<ul>
+									<li><a href="#">admin</a></li>
+									<li><a href="#">november 11, 2017</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- News Posts Small -->
+						<div class="news_post_small">
+							<div class="news_post_small_title"><a href="blog_single.html">2018 Fall Issue: Credit Card Comparison Site Survey (Summer 2018)</a></div>
+							<div class="news_post_meta">
+								<ul>
+									<li><a href="#">admin</a></li>
+									<li><a href="#">november 11, 2017</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- News Posts Small -->
+						<div class="news_post_small">
+							<div class="news_post_small_title"><a href="blog_single.html">Cuentas de cheques gratuitas una encuesta de Consumer Action</a></div>
+							<div class="news_post_meta">
+								<ul>
+									<li><a href="#">admin</a></li>
+									<li><a href="#">november 11, 2017</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- News Posts Small -->
+						<div class="news_post_small">
+							<div class="news_post_small_title"><a href="blog_single.html">Troubled borrowers have fewer repayment or forgiveness options</a></div>
+							<div class="news_post_meta">
+								<ul>
+									<li><a href="#">admin</a></li>
+									<li><a href="#">november 11, 2017</a></li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	
+</div>
+
+{% endblock %}

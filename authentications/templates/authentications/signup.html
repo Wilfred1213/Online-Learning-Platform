@@ -1,0 +1,179 @@
+{% extends 'base/learningApp/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="super_container" style="padding-top:250px">
+
+	<!-- Counter -->
+
+	<div class="counter">
+		<div class="counter_background" style="background-image:url({% static 'learningApp/images/counter_background.jpg' %})"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="counter_content">
+						<h2 class="counter_title">Register Now</h2>
+						<div class="counter_text"><p>Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dumy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></div>
+
+						<!-- Milestones -->
+
+						<div class="milestones d-flex flex-md-row flex-column align-items-center justify-content-between">
+							
+							<!-- Milestone -->
+							<div class="milestone">
+								<div class="milestone_counter" data-end-value="15">0</div>
+								<div class="milestone_text">years</div>
+							</div>
+
+							<!-- Milestone -->
+							<div class="milestone">
+								<div class="milestone_counter" data-end-value="120" data-sign-after="k">0</div>
+								<div class="milestone_text">years</div>
+							</div>
+
+							<!-- Milestone -->
+							<div class="milestone">
+								<div class="milestone_counter" data-end-value="670" data-sign-after="+">0</div>
+								<div class="milestone_text">years</div>
+							</div>
+
+							<!-- Milestone -->
+							<div class="milestone">
+								<div class="milestone_counter" data-end-value="320">0</div>
+								<div class="milestone_text">years</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="counter_form">
+				<div class="row fill_height">
+					<div class="col fill_height">
+						<form class="counter_form_content d-flex flex-column align-items-center justify-content-center" action="{% url 'authentications:register_user' %}" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+                            <div class="counter_form_title">courses now</div>
+							{% if form.errors %}
+                            <div class="alert alert-danger">
+                                Please correct the following errors:
+                                <ul>
+                                    {% for error in form.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" placeholder="{{ form.username.label }}" required>
+                            </div>
+                            {% if form.username.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.username.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <div class="form-group">
+                                <input type="email" class="form-control" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" placeholder="{{ form.email.label }}" required>
+                            </div>
+                            {% if form.email.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.email.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="{{ form.first_name.name }}" id="{{ form.first_name.id_for_label }}" placeholder="{{ form.first_name.label }}" required>
+                            </div>
+                            {% if form.first_name.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.first_name.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="{{ form.last_name.name }}" id="{{ form.last_name.id_for_label }}" placeholder="{{ form.last_name.label }}" required>
+                            </div>
+                            {% if form.last_name.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.last_name.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" placeholder="{{ form.password1.label }}" required>
+                            </div>
+                            {% if form.password1.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.password1.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" placeholder="{{ form.password2.label }}" required>
+                            </div>
+                            {% if form.password2.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.password2.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <div class="form-group">
+                                <input type="checkbox" name="{{ form.is_student.name }}" id="{{ form.is_student.id_for_label }}">
+                                <label for="{{ form.is_student.id_for_label }}">{{ form.is_student.label }}</label>
+                            </div>
+                            {% if form.is_student.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.is_student.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <div class="form-group">
+                                <input type="checkbox" name="{{ form.is_instructor.name }}" id="{{ form.is_instructor.id_for_label }}">
+                                <label for="{{ form.is_instructor.id_for_label }}">{{ form.is_instructor.label }}</label>
+                            </div>
+                            {% if form.is_instructor.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.is_instructor.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <div class="form-group">
+                                {{ form.photo }}
+                            </div>
+                            {% if form.photo.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.photo.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <!-- <textarea class="counter_input counter_text_input" name="message" placeholder="Message:" required></textarea> -->
+                            <button type="submit" class="counter_form_button">Submit Now</button>
+                            
+                        </form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	
+	{% include 'base/learningApp/event.html' %}
+
+	
+	
+</div>
+
+{% endblock %}

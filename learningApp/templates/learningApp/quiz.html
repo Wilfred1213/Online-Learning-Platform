@@ -1,0 +1,101 @@
+{% extends 'base/learningApp/base.html' %}
+
+{% block content %}
+<style>
+    /* Define the CSS for the selected class */
+    .selected {
+        background-color: #a7d3ff; /* Change this color as needed */
+    }
+</style>
+<div class="container mt-5 pt-5">
+    <div class="d-flex justify-content-center row" style="margin-bottom: 50px; margin-top: 150px;">
+        <div class="col-md-10 col-lg-10">
+            <div class="border">
+                <div class="question bg-white p-3 border-bottom">
+                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                        <h4>{{ quiz.0.course.title }}</h4>
+                        <span>({{ quiz.0.lesson.id }} of 20)</span>
+                    </div>
+                </div>
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    {% for question in quiz %}
+                    <div class="question bg-white p-3 border-bottom">
+                        <div class="d-flex flex-row align-items-center question-title">
+                            <h3 class="text-danger">Q.</h3>
+                            <h5 class="mt-1 ml-2">{{ question.asks }}</h5>
+                        </div>
+
+                        <div class="ans ml-2">
+                            <div class="">
+                                <div class="col-md-3">
+                                    <label class="radio{% if question.answered_correctly %} selected{% endif %}">
+                                        <input type="radio" name="question_{{ question.id }}" value="{{ question.option1 }}">
+                                        <span>{{ question.option1 }}</span>
+                                    </label>
+                                    <input type="hidden" name="question_{{ question.id }}_id" value="{{ question.id }}">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="radio{% if question.answered_correctly %} selected{% endif %}">
+                                        <input type="radio" name="question_{{ question.id }}" value="{{ question.option2 }}">
+                                        <span>{{ question.option2 }}</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="radio{% if question.answered_correctly %} selected{% endif %}">
+                                        <input type="radio" name="question_{{ question.id }}" value="{{ question.option3 }}">
+                                        <span>{{ question.option3 }}</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="radio{% if question.answered_correctly %} selected{% endif %}">
+                                        <input type="radio" name="question_{{ question.id }}" value="{{ question.option4 }}">
+                                        <span>{{ question.option4 }}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% for user_answer in user_answers %}
+                        {% if user_answer.question == question %}
+                        <div>
+                            {% if user_answer.is_correct %}
+                            <p class="text-success">Correct Answer!</p>
+                            {% else %}
+                            <p class="text-danger">Wrong Answer. Correct answer: {{ question.answers }}</p>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary btn-success">Submit</button>
+                </form>
+
+                <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
+                    <button class="btn btn-primary d-flex align-items-center btn-danger" type="button">
+                        <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;Previous
+                    </button>
+                    <button class="btn btn-primary border-success align-items-center btn-success" type="button">
+                        <a href="{% url 'view_score' quiz.0.course.id %}" class ="text-white">View your score<i class="fa fa-angle-right ml-2"></i></a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Add a class to the selected radio button's label when clicked
+        $("input[type='radio']").click(function () {
+            // Remove the 'selected' class from all labels in the same radio group
+            $("input[name='" + $(this).attr("name") + "']").closest("label").removeClass("selected");
+            // Add the 'selected' class to the label of the clicked radio button
+            $(this).closest("label").addClass("selected");
+        });
+    });
+</script>
+
+{% endblock %}

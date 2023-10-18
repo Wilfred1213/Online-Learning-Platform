@@ -1,0 +1,69 @@
+{% extends 'base/learningApp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mb-5" style="padding-top: 7%;">
+    <div class="certificate">
+        <img src="{% static 'learningApp/images/certificate.jpg' %}" alt="Certificate Logo" class="logo">
+        <h1>Certificate of Completion</h1>
+        <p>This is to certify that</p>
+        <h2 class="user-name">{{ user.first_name }} {{ user.last_name }}</h2>
+        <p>has successfully completed the course</p>
+        <h3 class="course-name">{{ course.title }}</h3>
+        <p class="issued-date">Issued on: {{ certificate.issued_date | date }}</p>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <a href="{% url 'generate_certificate_pdf' certificate.id %}" class="btn btn-primary">Download Certificate</a>
+    </div>
+
+<!--    review instructor-->
+    <div class="add_comment_container">
+        <div class="add_comment_title">Add a review</div>
+        <div class="add_comment_text">Click here <a href="">Add</a> to review the Instructor.</div>
+
+    </div>
+<!--    team-->
+    	<!-- Team -->
+
+	<div class="team">
+		<div class="team_background parallax-window" data-parallax="scroll" data-image-src="{% static 'learningApp/images/team_background.jpg' %}" data-speed="0.8"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="section_title_container text-center">
+						<h2 class="section_title">Please rate the instructors</h2>
+						<div class="section_subtitle"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel gravida arcu. Vestibulum feugiat, sapien ultrices fermentum congue, quam velit venenatis sem</p></div>
+					</div>
+				</div>
+			</div>
+			<div class="row team_row">
+
+				<!-- Team Item -->
+                {% for instructors in instructor %}
+				<div class="col-lg-3 col-md-6 team_col">
+					<div class="team_item">
+						<div class="team_image"><img src="{{ instructors.display_image }}" alt=""></div>
+						<div class="team_body">
+							<div class="team_title"><a href="#">{{ instructors.name }}</a></div>
+							<div class="team_subtitle">{{ instructors.position }}</div>
+                            <div class="add_comment_text"><a href="{% url 'rate_instructor' instructors.id %}">Rate me</a> </div>
+
+							<div class="social_list">
+								<ul>
+									<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+
+			</div>
+		</div>
+	</div>
+
+<!--    end-->
+</div>
+{% endblock %}

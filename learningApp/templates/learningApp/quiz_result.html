@@ -1,0 +1,30 @@
+{% extends 'base/learningApp/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card quiz-result mx-auto" style="margin-top: 200px; margin-bottom: 50px; width: 50%;">
+        <h3 class="mb-5 text-dark mx-auto pt-3">Quiz Result</h3>
+        <div class="score">
+            <!-- Use cumulative_score instead of score -->
+            <div class="score-value mx-5" style="font-size: 2rem; color: blue;">You scored {{ score }} out of {{ outof }}</div>
+        </div>
+        <div class="feedback">
+            <div class="text-danger mx-5">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="action-buttons mx-auto pt-5 mb-3">
+            <a href="" class="btn btn-primary">Back to Courses</a>
+
+            <!-- Conditionally display the "Get Certificate" button -->
+            {% if score|default:0 >= get_half %}
+            <a href="{% url 'generate_certificate' courses.id %}" class="btn btn-secondary">Get your certificate</a>
+            {% else %}
+            <p class="text-danger">Oops! You didn't score enough to get a certificate. Please try again.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

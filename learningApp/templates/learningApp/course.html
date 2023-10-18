@@ -1,0 +1,471 @@
+{% extends 'base/learningApp/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+{% block title %}Course Details {% endblock %}
+
+<div class="super_container">
+
+	
+	
+	<div class="home">
+		<div class="breadcrumbs_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="breadcrumbs">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="courses.html">Courses</a></li>
+								<li>Course Details</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>			
+	</div>
+
+	<!-- Course -->
+
+	<div class="course">
+		<div class="container">
+			<div class="row">
+
+				<!-- Course -->
+				<div class="col-lg-8">
+					
+					<div class="course_container">
+						<div class="course_title">{{ courses.title }}</div>
+						<div class="course_info d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+
+							<!-- Course Info Item -->
+							{% for inst in courses.instructor.all %}
+							<div class="course_info_item">
+								<div class="course_info_title">Teacher:</div>
+								<div class="course_info_text"><a href="#">{{ inst.name }}</a></div>
+							</div>
+							{% endfor %}
+							
+							<!-- Course Info Item -->
+							<div class="course_info_item">
+								<div class="course_info_title">Reviews:</div>
+								<div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+							</div>
+
+							<!-- Course Info Item -->
+							{% for inst in courses.categories.all %}
+							<div class="course_info_item">
+								<div class="course_info_title">Categories:</div>
+
+								<div class="course_info_text"><a href="#">{{ inst.name }}</a></div>
+							</div>
+							{% endfor%}
+
+						</div>
+
+						<!-- Course Image -->
+						<div class="course_image"><img src="{{ courses.display_image }}" alt=""></div>
+
+						<!-- Course Tabs -->
+						<div class="course_tabs_container">
+							<div class="tabs d-flex flex-row align-items-center justify-content-start">
+								<div class="tab active">description</div>
+								<div class="tab">curriculum</div>
+								<div class="tab">reviews</div>
+							</div>
+							<div class="tab_panels">
+
+								<!-- Description -->
+								
+								<div class="tab_panel active">
+									<div class="tab_panel_title">{{ courses.name }}</div>
+									<div class="tab_panel_content">
+										<div class="tab_panel_text">
+											<p>{{ courses.description }}</p>
+										</div>
+										<div class="tab_panel_section">
+											<div class="tab_panel_subtitle">Requirements</div>
+											<ul class="tab_panel_bullets">
+												{{ courses.requirement | safe}}
+											</ul>
+										</div>
+										<div class="tab_panel_section">
+											<div class="tab_panel_subtitle">What is the target audience?</div>
+											<div class="tab_panel_text">
+												{{ courses.target_audience |safe}}
+											</div>
+										</div>
+										
+										<div class="tab_panel_faq">
+											<div class="tab_panel_title">FAQ</div>
+
+											<!-- Accordions -->
+											<div class="accordions">
+												
+												<div class="elements_accordions">
+													{% for faq in faqs %}
+													<div class="accordion_container">
+														<div class="accordion d-flex flex-row align-items-center"><div>{{ faq.asks}}</div></div>
+														<div class="accordion_panel">
+															<p>{{ faq.answers}}</p>
+														</div>
+													</div>
+													{% endfor %}
+
+													
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Curriculum -->
+								<div class="tab_panel tab_panel_2">
+									<div class="tab_panel_content">
+										<div class="tab_panel_title">{{ courses.name}}</div>
+										<div class="tab_panel_content">
+											<div class="tab_panel_text">
+												<p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auci elit consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio.</p>
+											</div>
+
+											<!-- Dropdowns -->
+											<ul class="dropdowns">
+												<li class="has_children">
+													{% for curriculum in curs %}
+													<div class="dropdown_item">
+														<div class="dropdown_item_title"><span>{{ curriculum.heading|safe}}</div>
+														<div class="dropdown_item_text">
+															{{ curriculum.heading_intro|safe}}
+														</div>
+													</div>
+													<ul>
+														<li>
+															<div class="dropdown_item">
+																<div class="dropdown_item_title">{{ curriculum.sub_heading|safe}}</div>
+																<div class="dropdown_item_text">
+																	{{ curriculum.heading_intro|safe}}
+																</div>
+															</div>
+														</li>
+														<li>
+															<div class="dropdown_item">
+																<div class="dropdown_item_title">{{ curriculum.sub_heading1|safe}}</div>
+																<div class="dropdown_item_text">
+																	{{ curriculum.sub_heading_intro1|safe}}
+																</div>
+															</div>
+														</li>
+														<li>
+															<div class="dropdown_item">
+																<div class="dropdown_item_title">{{ curriculum.sub_heading2|safe}}</div>
+																<div class="dropdown_item_text">
+																	{{ curriculum.sub_heading_intro2|safe}}
+																</div>
+															</div>
+														</li>
+														<li>
+															<div class="dropdown_item">
+																<div class="dropdown_item_title">{{ curriculum.sub_heading3|safe}}</div>
+																<div class="dropdown_item_text">
+																	{{ curriculum.sub_heading_intro3|safe}}
+																</div>
+															</div>
+														</li>
+														
+														
+															
+													</ul>
+													{% endfor %}
+												</li>
+												
+										</div>
+									</div>
+								</div>
+
+								<!-- Reviews -->
+								<div class="tab_panel tab_panel_3">
+									<div class="tab_panel_title">Course Review</div>
+
+									<!-- Rating -->
+									
+									<div class="review_rating_container">
+										
+										<div class="review_rating">
+											<div class="review_rating_num">{{num_reviews}}</div>
+											<div class="review_rating_stars">
+												<div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div>
+											</div>
+											<div class="review_rating_text">(52 Ratings)</div>
+										</div>
+										
+										<!-- newe bar -->
+										<div class="course_info_item">
+											<div class="course_info_title">Average Rating:</div>
+											<div class="rating_r rating_r_{{ average_rating|default:0 }}">
+												{% for i in "12345" %}
+													<i class="fa fa-star{% if average_rating and i|add:'0' <= average_rating %} active{% endif %}" style="color: {% if average_rating|default:0 >= i %} #FFD700; {% endif %}"></i>
+												{% endfor %}
+											</div>
+										</div>
+										
+										
+										
+										<div class="review_rating_bars">
+											<ul>
+												<li><span>5 Star</span><div class="review_rating_bar"><div style="width: {{ rating_percentages.0 }}%;"></div></div></li>
+												<li><span>4 Star</span><div class="review_rating_bar"><div style="width: {{ rating_percentages.1 }}%;"></div></div></li>
+												<li><span>3 Star</span><div class="review_rating_bar"><div style="width: {{ rating_percentages.2 }}%;"></div></div></li>
+												<li><span>2 Star</span><div class="review_rating_bar"><div style="width: {{ rating_percentages.3 }}%;"></div></div></li>
+												<li><span>1 Star</span><div class="review_rating_bar"><div style="width: {{ rating_percentages.4 }}%;"></div></div></li>
+											</ul>
+										</div>
+										
+										<!-- end -->
+									</div>
+									
+									
+									<!-- Comments -->
+
+									<div class="comments_container">
+										<ul class="comments_list">
+											{% for review in reviews %}
+											<li>
+												<div class="comment_item d-flex flex-row align-items-start justify-content-start">
+													<div class="comment_image">
+														<div><img src="{{ review.display_image }}" alt="{{ review.user.username }}"></div>
+													</div>
+													<div class="comment_content">
+														<div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
+															<div class="comment_author"><a href="#">{{ review.user.username }}</a></div>
+															<div class="comment_rating">
+																<div class="rating_r rating_r_{{ review.rating }}"><i></i><i></i><i></i><i></i><i></i></div>
+															</div>
+															<div class="comment_time ml-auto">{{ review.post_date|date:"n/j/Y" }}</div>
+														</div>
+														<div class="comment_text">
+															<p>{{ review.comment }}</p>
+														</div>
+														<div class="comment_extras d-flex flex-row align-items-center justify-content-start">
+															<form action="{% url 'likereview' review.id %}" method="post">
+																{% csrf_token %}
+																<button type="submit" name="like" value="like" class="like-button">
+																	{% if user in review.likes.all %}
+																		<i class="fa fa-heart liked" aria-hidden="true"></i>
+																	{% else %}
+																		<i class="fa fa-heart" aria-hidden="true"></i>
+																	{% endif %}
+																	<span>{{ review.likes.count }}</span>
+																</button>
+															</form>															
+															
+															
+															<div class="comment_extra comment_reply">
+																<a href="{% url 'reply_review' review.id %}">
+																	<i class="fa fa-reply" aria-hidden="true"></i><span>Reply</span>
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<ul>
+													{% for reply in review.replyreview_set.all %}
+													<li>
+														<div class="comment_item d-flex flex-row align-items-start justify-content-start">
+															<div class="comment_image">
+																<div><img src="{{ reply.user.photo.url }}" alt="{{ reply.user.username }}"></div>
+															</div>
+															<div class="comment_content">
+																<div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
+																	<div class="comment_author"><a href="#">{{ reply.user.username }}</a></div>
+																	<div class="comment_rating">
+																		<div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div>
+																	</div>
+																	<div class="comment_time ml-auto">{{ reply.post_date|date:"n/j/Y" }}</div>
+																</div>
+																<div class="comment_text">
+																	<p>{{ reply.comment_text }}</p>
+																</div>
+																<div class="comment_extras d-flex flex-row align-items-center justify-content-start">
+																	
+																	<div class="comment_extra comment_reply">
+																		<form action="{% url 'likereply' reply.id %}" method="post">
+																			{% csrf_token %}
+																			<button type="submit" name="like" value="like" class="like-button">
+																				{% if user in reply.likes.all %}
+																					<i class="fa fa-heart liked" aria-hidden="true"></i>
+																				{% else %}
+																					<i class="fa fa-heart" aria-hidden="true"></i>
+																				{% endif %}
+																				<span>{{ reply.likes.count }}</span>
+																			</button>
+																		</form>														
+			
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+													{% endfor %}
+												</ul>
+											</li>
+											{% endfor %}
+										</ul>
+
+										<div class="add_comment_container">
+											<div class="add_comment_title">Add a review</div>
+											<div class="add_comment_text">Click here <a href="{% url 'review_course' courses.id %}">Add</a> comment to the post.</div>
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+						</div>
+						<div class="tabs d-flex flex-row align-items-center justify-content-start">
+
+							<form action="." method="post">
+								{% csrf_token %}
+                                {% if enrolled %}
+                                <div class="add_comment_text">Click here <a href="{% url 'lessonpage' courses.id %}">Add</a> Continue with lesson</div>
+							    {% else %}
+                                <button class="btn btn-primary" name="enrolled">Enroll Now</button>
+                                {% endif %}
+                            </form>
+							
+							
+						</div>
+					</div>
+				</div>
+
+				<!-- Course Sidebar -->
+				<div class="col-lg-4">
+					<div class="sidebar">
+
+						<!-- Feature -->
+						<div class="sidebar_section">
+							<div class="sidebar_section_title">Course Feature</div>
+							<div class="sidebar_feature">
+								<div class="course_price">${{ courses.price }}</div>
+
+								<!-- Features -->
+								<div class="feature_list">
+
+									<!-- Feature -->
+									<div class="feature d-flex flex-row align-items-center justify-content-start">
+										<div class="feature_title"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Duration:</span></div>
+										<div class="feature_text ml-auto">{{ courses.duration }}</div>
+									</div>
+
+									<!-- Feature -->
+									<div class="feature d-flex flex-row align-items-center justify-content-start">
+										<div class="feature_title"><i class="fa fa-file-text-o" aria-hidden="true"></i><span>Lectures:</span></div>
+										<div class="feature_text ml-auto">{{ lessons }}</div>
+									</div>
+
+									
+								</div>
+							</div>
+						</div>
+
+						<!-- Feature -->
+						<div class="sidebar_section">
+							<div class="sidebar_section_title">Teacher</div>
+							<div class="sidebar_teacher">
+								{% for inst in instructors %}
+								<div class="teacher_title_container d-flex flex-row align-items-center justify-content-start">
+									
+									<div class="teacher_image"><img src="{{ inst.display_image }}" alt=""></div>
+									<div class="teacher_title">
+										<div class="teacher_name"><a href="#">{{ inst.name }}</a></div>
+										<div class="teacher_position">Manager</div>
+									</div>
+									
+								</div>
+
+								<div class="teacher_meta_container">
+									<!-- Teacher Rating -->
+									<div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
+										<div class="teacher_meta_title">Average Rating:</div>
+										<div class="teacher_meta_text ml-auto"><span>{{ reviewinstructor.course_rating|floatformat:1| default:0 }}</span><i class="fa fa-star" aria-hidden="true"></i></div>
+									</div>
+									<!-- Teacher Review -->
+									<div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
+										<div class="teacher_meta_title">Review:</div>
+										<div class="teacher_meta_text ml-auto"><span>{{ reviewinstructor.review_count}}</span><i class="fa fa-comment" aria-hidden="true"></i></div>
+									</div>
+									<!-- Teacher Quizzes -->
+									<div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
+										<div class="teacher_meta_title">Quizzes:</div>
+										<div class="teacher_meta_text ml-auto"><span>{{ reviewinstructor.quiz_count}}</span><i class="fa fa-user" aria-hidden="true"></i></div>
+									</div>
+								</div>
+
+								<div class="teacher_info">
+									<p> {{ inst.comment }}</p>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+
+						<!-- Latest Course -->
+						<div class="sidebar_section">
+							<div class="sidebar_section_title">Latest Courses</div>
+							<div class="sidebar_latest">
+
+								<!-- Latest Course -->
+								{% for course in latest_course %}
+								<div class="latest d-flex flex-row align-items-start justify-content-start">
+									<div class="latest_image"><div><img src="{{ course.display_image }}" alt=""></div></div>
+									<div class="latest_content">
+										<div class="latest_title"><a href="{% url 'category_detail' course.id %}">{{ course.title}}</a></div>
+										<div class="latest_price">${{ course.price}}</div>
+									</div>
+								</div>
+								{% endfor %}
+
+								
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+	
+</div>
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const likeButton = document.getElementById("like-button");
+		likeButton.addEventListener("click", function () {
+			const form = document.getElementById("like-form");
+			const formData = new FormData(form);
+	
+			fetch("/your-like-endpoint/", {
+				method: "POST",
+				body: formData,
+			})
+			.then(response => response.json())
+			.then(data => {
+				// Update the like count on the page if needed
+				const likeCount = document.querySelector(".comment_likes span");
+				likeCount.textContent = data.likes_count;
+			})
+			.catch(error => {
+				console.error("Error:", error);
+			});
+		});
+	});
+	</script>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+from django.contrib import admin
+from learningApp.models import *
+# Register your models here.
+admin.site.register(Category)
+admin.site.register(Course)
+admin.site.register(Lesson)
+admin.site.register(Enrollment)
+admin.site.register(Progress)
+admin.site.register(Intro)
+admin.site.register(Menu)
+admin.site.register(Instructor)
+admin.site.register(Review)
+admin.site.register(ReplyReview)
+admin.site.register(Curriculum)
+admin.site.register(Questions)
+admin.site.register(Quiz)
+admin.site.register(UserAnswer)
+admin.site.register(QuizScore)
+admin.site.register(CumulativeScore)
+admin.site.register(Certificate)
+admin.site.register(upcomingEvent)
+admin.site.register(subscriptionNewsletter)
+admin.site.register(reviewInstructor)
+admin.site.register(EnrollmentNotification)
+
